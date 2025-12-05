@@ -1,0 +1,58 @@
+
+<div class="p-4 max-w-lg mx-auto">
+  <h1 class="text-3xl font-bold text-indigo-400 mb-6 text-center">Translator</h1>
+  
+  <div class="space-y-4">
+    <div class="flex items-center justify-between space-x-2">
+      <select [(ngModel)]="sourceLang" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:ring-indigo-500 focus:border-indigo-500">
+        @for(lang of languages; track lang) {
+          <option [value]="lang">{{ lang }}</option>
+        }
+      </select>
+      
+      <button (click)="swapLanguages()" class="p-2 bg-slate-700 hover:bg-slate-600 rounded-full transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-slate-300">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+        </svg>
+      </button>
+
+      <select [(ngModel)]="targetLang" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:ring-indigo-500 focus:border-indigo-500">
+        @for(lang of languages; track lang) {
+          <option [value]="lang">{{ lang }}</option>
+        }
+      </select>
+    </div>
+
+    <textarea
+      [ngModel]="inputText()"
+      (ngModelChange)="inputText.set($event)"
+      rows="5"
+      placeholder="Enter text to translate..."
+      class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:ring-indigo-500 focus:border-indigo-500 placeholder-slate-500"></textarea>
+
+    <button 
+      (click)="handleTranslation()"
+      [disabled]="isLoading() || !inputText()"
+      class="w-full flex items-center justify-center py-3 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-900/50 text-white font-semibold rounded-lg shadow-md transition-colors duration-200">
+      @if (isLoading()) {
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Translating...</span>
+      } @else {
+        <span>Translate</span>
+      }
+    </button>
+    
+    @if (error()) {
+      <div class="bg-red-900/50 border border-red-700 text-red-300 p-3 rounded-lg text-center text-sm">
+        {{ error() }}
+      </div>
+    }
+
+    <div class="bg-slate-800 rounded-lg p-3 min-h-[140px] text-slate-300 border border-slate-700">
+      {{ translatedText() || 'Translation will appear here.' }}
+    </div>
+  </div>
+</div>

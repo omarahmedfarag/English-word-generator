@@ -1,0 +1,22 @@
+
+{
+  "short_name": "LingoBoost",
+  "name": "LingoBoost AI",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#1e293b",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/fluency/192/translation.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://img.icons8.com/fluency/512/translation.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
